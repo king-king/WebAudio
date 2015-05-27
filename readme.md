@@ -27,7 +27,8 @@ audio.src = "music/bg.mp3";
 4：播放中
 5：暂停
 ```
-* 当audio.state为0,1,2,4的时候，调用play()方法没有意义，如果state<3，则调用play()方法不会起作用，如果state为4时调用
-play()，音乐仍继续播放。audio提供onload方法，onload方法被调用时，audio.state的数值为3，此时调用play()方法会播放音乐。
-当然，如果设置autoPlay，音乐会自动在audio.state为3时候播放。
+* 当audio.state为0,1,2,4的时候，调用play()方法没有意义（如果state<3，则调用play()方法不会起作用，如果state为4时调用
+play()，音乐仍继续播放）。
+audio提供onload方法，onload方法被调用时，audio.state的数值为3，此时调用play()方法会播放音乐。当然，如果设置autoPlay，
+音乐会自动在audio.state为3时候播放。
 
