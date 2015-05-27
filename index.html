@@ -3,14 +3,47 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <style>
+        .pause, .play {
+            width: 100px;
+            height: 40px;
+            line-height: 40px;
+            background-color: deeppink;
+            color: #fff;
+            text-align: center;
+            font-size: 20px;
+            border-radius: 5px;
+        }
+
+        .play {
+            background-color: deepskyblue;
+        }
+    </style>
 </head>
 <body>
+<div class="pause">pause</div>
+<div class="play">play</div>
 <script src="api.js"></script>
 <script>
     (function () {
         var WebAudio = media.WebAudio;
         var audio = new WebAudio();
         audio.src = "music/She_Began_to_Lie.mp3";
+        audio.onload = function () {
+            console.log( "load" );
+            audio.play();
+        };
+
+        document.querySelector( ".pause" ).onclick = function () {
+            audio.pause();
+            console.log( "pause" );
+            console.log( audio.context.currentTime )
+        };
+
+        document.querySelector( ".play" ).onclick = function () {
+            audio.play();
+            console.log( "play" )
+        }
     })();
 </script>
 </body>
