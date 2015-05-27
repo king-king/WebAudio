@@ -20,7 +20,7 @@ audio.src = "music/bg.mp3";
 * 音频是有状态的，可以通过state属性读取audio的状态
 ```js
 //audio.state
-0:初始化、
+0：初始化、
 1：下载中、
 2：下载完毕正在解码、
 3：解码完毕、
