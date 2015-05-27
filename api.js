@@ -6,16 +6,21 @@
         var context = new AudioContext();
         this.autoPlay = false;
         var audio = this;
+        audio.state = 0;// 0:初始化、1：下载中、2：下载完毕正在解码、3：播放中、4：暂停
         audio.currentTime = 0;
         audio.play = function () {
-            var source = context.createBufferSource();
-            audio.source = source;
-            source.buffer = audio.buffer;
-            source.connect( context.destination );
-            source.start( 0, audio.currentTime );
+            if ( audio.state != 3 ) {
+                audio.state = 3;
+                var source = context.createBufferSource();
+                audio.source = source;
+                source.buffer = audio.buffer;
+                source.connect( context.destination );
+                source.start( 0, audio.currentTime );
+            }
         };
 
         audio.pause = function () {
+            audio.state = 4;
             audio.source && audio.source.stop();
             audio.currentTime = audio.context.currentTime;
         };
@@ -38,6 +43,7 @@
                             source.connect( context.destination );
                             audio.source = source;
                             source.buffer = buffer;
+                            audio.state = 3;
                             source.start( 0 );
                         }
                         audio.onload && audio.onload();
