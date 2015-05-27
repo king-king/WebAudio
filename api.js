@@ -2,7 +2,7 @@
  * Created by WQ on 2015/5/27.
  */
 (function () {
-    var WebAudio = function () {
+    window.WebAudio = function () {
         var context = new AudioContext();
         this.autoPlay = false;
         var audio = this;
