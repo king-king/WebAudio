@@ -9,7 +9,15 @@
         audio.state = 0;// 0:初始化、1：下载中、2：下载完毕正在解码、3：解码完毕、4：播放中、5：暂停
         audio.currentTime = 0;
         audio.play = function ( offset, duration ) {
-            if ( audio.state != 4 && audio.state > 2 ) {
+            if ( audio.state > 2 ) {
+                if ( !offset && !duration && audio.state == 4 ) {
+                    // 如果正在播放中，但是定位信息缺失，则直接return
+                    return;
+                }
+                if ( audio.state == 4 ) {
+                    // 正在播放，但是offset或者duration有数值，则暂停音乐，重新start
+                    audio.pause();
+                }
                 audio.state = 4;
                 var source = context.createBufferSource();
                 audio.loop && (source.loop = true);

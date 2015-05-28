@@ -32,3 +32,5 @@ audio.src = "music/bg.mp3";
 * 调用pause()后再调用play()方法会从暂停的地方继续播放。play()方法可以指定两个参数：offset(s)和duration(s)。
 offset可以指定从何时开始，duration可以指定播放的时长。
 
+* 可以通过设置loop属性为true，让音乐循环播放
+
