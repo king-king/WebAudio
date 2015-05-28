@@ -31,10 +31,12 @@
                     source.connect( analyser );
                     analyser.connect( context.destination );
                     audio.frequencyData = new Uint8Array( analyser.frequencyBinCount );
+                    audio.timeDomainData = new Uint8Array( analyser.frequencyBinCount );
                     function onaudioprocess() {
                         setTimeout( function () {
                             analyser.getByteFrequencyData( audio.frequencyData );
-                            audio.onaudioprocess && audio.onaudioprocess( audio.frequencyData );
+                            analyser.getByteTimeDomainData( audio.timeDomainData );
+                            audio.onaudioprocess && audio.onaudioprocess( audio.frequencyData, audio.timeDomainData );
                             if ( audio.state == 4 ) {
                                 onaudioprocess();
                             }

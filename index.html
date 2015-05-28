@@ -58,8 +58,8 @@
 
         var canvas = document.querySelector( "canvas" );
         var gc = canvas.getContext( "2d" );
-        audio.onaudioprocess = function ( data ) {
-//            console.log( Math.max.apply( this, data ), data );
+        audio.onaudioprocess = function ( data, data2 ) {
+//            console.log( Math.max.apply( this, data ), data.length );
             gc.clearRect( 0, 0, 300, 300 );
             gc.fillStyle = "green";
             for ( var i = 0; i < data.length; i++ ) {
