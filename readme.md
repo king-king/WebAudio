@@ -2,6 +2,8 @@
 
 通过WebAudio技术获得比HTML5中audio标签更为强大的功能和更为流畅的体验。
 
+### 浏览器支持情况
+<img src="support-image.jpg" style="width:100%">
 
 ### 简单的用例
 
