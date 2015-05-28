@@ -26,6 +26,7 @@
                 audio.source = source;
                 source.buffer = audio.buffer;
                 source.connect( context.destination );
+                offset && (sumPlayTime = offset);
                 duration ? source.start( 0, offset || sumPlayTime % audio.duration, duration ) : source.start( 0, offset || sumPlayTime % audio.duration );
             }
         };
@@ -34,7 +35,6 @@
             audio.state = 5;
             audio.source && audio.source.stop();
             sumPlayTime = sumPlayTime + audio.context.currentTime - startPlayTime;
-            console.log( sumPlayTime )
         };
 
         Object.defineProperty( audio, "src", {
