@@ -20,22 +20,29 @@
         .play {
             background-color: deepskyblue;
         }
+
+        canvas {
+            width: 300px;
+            height: 300px;
+        }
     </style>
 </head>
 <body>
 <div class="pause">pause</div>
 <div class="play">play</div>
+<canvas width="300" height="300"></canvas>
 <script src="api.js"></script>
 <script>
     (function () {
         window.audio = new WebAudio();
-//        audio.src = "music/bgm.mp3";
+        audio.src = "music/bgm.mp3";
 //        audio.src = "music/She_Began_to_Lie.mp3";
-        audio.src = "music/fen_kai_lv_xing.mp3";
+//        audio.src = "music/fen_kai_lv_xing.mp3";
         audio.loop = true;
+        audio.analyser = true;
         audio.onload = function () {
             console.log( "load" );
-            audio.play( 30 );
+            audio.play();
         };
 
         document.querySelector( ".pause" ).onclick = function () {
@@ -45,8 +52,21 @@
 
         document.querySelector( ".play" ).onclick = function () {
             audio.play();
-            console.log( "play" )
+            console.log( "play" );
+        };
+
+
+        var canvas = document.querySelector( "canvas" );
+        var gc = canvas.getContext( "2d" );
+        audio.onaudioprocess = function ( data ) {
+//            console.log( Math.max.apply( this, data ), data );
+            gc.clearRect( 0, 0, 300, 300 );
+            gc.fillStyle = "green";
+            for ( var i = 0; i < data.length; i++ ) {
+                gc.fillRect( i, 300 - data[i], 1, data[i] );
+            }
         }
+
     })();
 </script>
 </body>

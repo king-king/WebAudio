@@ -25,7 +25,27 @@
                 audio.loop && (source.loop = true);
                 audio.source = source;
                 source.buffer = audio.buffer;
-                source.connect( context.destination );
+                if ( audio.analyser ) {
+                    var analyser = context.createAnalyser();
+                    analyser.fftSize = 512;
+                    source.connect( analyser );
+                    analyser.connect( context.destination );
+                    audio.frequencyData = new Uint8Array( analyser.frequencyBinCount );
+                    function onaudioprocess() {
+                        setTimeout( function () {
+                            analyser.getByteFrequencyData( audio.frequencyData );
+                            audio.onaudioprocess && audio.onaudioprocess( audio.frequencyData );
+                            if ( audio.state == 4 ) {
+                                onaudioprocess();
+                            }
+                        }, 1000 / 60 );
+                    }
+
+                    onaudioprocess();
+                }
+                else {
+                    source.connect( context.destination );
+                }
                 offset && (sumPlayTime = offset);
                 duration ? source.start( 0, offset || sumPlayTime % audio.duration, duration ) : source.start( 0, offset || sumPlayTime % audio.duration );
             }

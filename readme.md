@@ -35,3 +35,17 @@ audio.src = "music/bg.mp3";
 的两个参数从根本上支持了音乐播放中的快进、快退功能。
 
 * 可以通过设置loop属性为true，让音乐循环播放
+
+
+### 高级用法
+
+#### 获取音频的时域频域数据
+如果想要获取时域频域数据，需要设置audio的analyser属性为true
+```js
+audio.analyser=true;
+// 之后可以在audio.frequencyData 属性中获取到频域数据，在audio.timeDomainData中获取到时域数据
+```
+
+
+
+
