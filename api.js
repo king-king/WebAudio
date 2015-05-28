@@ -7,7 +7,8 @@
         this.autoPlay = false;
         var audio = this;
         audio.state = 0;// 0:初始化、1：下载中、2：下载完毕正在解码、3：解码完毕、4：播放中、5：暂停
-        audio.currentTime = 0;
+        var startPlayTime = 0;
+        var sumPlayTime = 0;
         audio.play = function ( offset, duration ) {
             if ( audio.state > 2 ) {
                 if ( !offset && !duration && audio.state == 4 ) {
@@ -18,20 +19,22 @@
                     // 正在播放，但是offset或者duration有数值，则暂停音乐，重新start
                     audio.pause();
                 }
+                startPlayTime = audio.context.currentTime;
                 audio.state = 4;
                 var source = context.createBufferSource();
                 audio.loop && (source.loop = true);
                 audio.source = source;
                 source.buffer = audio.buffer;
                 source.connect( context.destination );
-                duration ? source.start( 0, offset || audio.currentTime, duration ) : source.start( 0, offset || audio.currentTime );
+                duration ? source.start( 0, offset || sumPlayTime % audio.duration, duration ) : source.start( 0, offset || sumPlayTime % audio.duration );
             }
         };
 
         audio.pause = function () {
             audio.state = 5;
             audio.source && audio.source.stop();
-            audio.currentTime = audio.context.currentTime;
+            sumPlayTime = sumPlayTime + audio.context.currentTime - startPlayTime;
+            console.log( sumPlayTime )
         };
 
         Object.defineProperty( audio, "src", {
@@ -50,11 +53,11 @@
                     context.decodeAudioData( xhr.response, function ( buffer ) {
                         console.log( buffer );
                         audio.duration = buffer.duration;
-                        audio.state = 3;
                         audio.buffer = buffer;
                         if ( audio.autoPlay ) {
                             audio.play();
                         }
+                        audio.state = 3;
                         audio.onload && audio.onload();
                     } )
                 };

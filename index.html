@@ -28,19 +28,18 @@
 <script src="api.js"></script>
 <script>
     (function () {
-        var audio = new WebAudio();
-        audio.src = "music/bgm.mp3";
+        window.audio = new WebAudio();
+//        audio.src = "music/bgm.mp3";
 //        audio.src = "music/She_Began_to_Lie.mp3";
+        audio.src = "music/fen_kai_lv_xing.mp3";
         audio.loop = true;
         audio.onload = function () {
             console.log( "load" );
-            audio.play();
         };
 
         document.querySelector( ".pause" ).onclick = function () {
             audio.pause();
             console.log( "pause" );
-            console.log( audio.context.currentTime )
         };
 
         document.querySelector( ".play" ).onclick = function () {
