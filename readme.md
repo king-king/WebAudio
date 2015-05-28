@@ -27,10 +27,9 @@ audio.src = "music/bg.mp3";
 4：播放中
 5：暂停
 ```
-* 可以调用pause()方法暂停音乐播放
+* 可以调用pause()方法暂停音乐播放，state会变为5。可以通过state是否为4或5来判断音乐是否播放过。
 
-* 调用pause()后再调用play()方法会从暂停的地方继续播放。play()方法可以指定两个参数：offset(s)和duration(s)。
-offset可以指定从何时开始，duration可以指定播放的时长。
+* audio.play([offset],[duration]) 该方法既可以实现从指定时间（offset）、指定时长（duration）播放音乐。play方法
+的两个参数从根本上支持了音乐播放中的快进、快退功能。
 
 * 可以通过设置loop属性为true，让音乐循环播放
-
