@@ -40,10 +40,14 @@ audio.src = "music/bg.mp3";
 ### 高级用法
 
 #### 获取音频的时域频域数据
-如果想要获取时域频域数据，需要设置audio的analyser属性为true
+如果想要获取时域频域数据，需要设置audio的analyser属性为true，然后在onaudioprocess回掉中取得数据
 ```js
+audio.fftSize=256;//这个数值是域的范围，也就是会影响到下面data的length。必须是2的n次方并且在[32,2048]这个范围里。
 audio.analyser=true;
-// 之后可以在audio.frequencyData 属性中获取到频域数据，在audio.timeDomainData中获取到时域数据
+audio.onaudioprocess=fucntion(frequencyData,timeDomainData){
+    //frequencyData:频域数据
+    //timeDomainData：时域数据
+}
 ```
 
 
