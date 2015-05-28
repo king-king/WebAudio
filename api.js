@@ -32,9 +32,11 @@
         };
 
         audio.pause = function () {
-            audio.state = 5;
-            audio.source && audio.source.stop();
-            sumPlayTime = sumPlayTime + audio.context.currentTime - startPlayTime;
+            if ( audio.state == 4 ) {
+                audio.state = 5;
+                audio.source && audio.source.stop();
+                sumPlayTime = sumPlayTime + audio.context.currentTime - startPlayTime;
+            }
         };
 
         Object.defineProperty( audio, "src", {
